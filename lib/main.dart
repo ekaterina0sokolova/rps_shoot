@@ -43,12 +43,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // user win
     if (winList.any((list) => list[0] == userOption && list[1] == botOption)) {
-      return "Победа!";
+      return "👑Победа!👑";
     }
     else if (userOption == botOption) {
       return "Ничья!";
     }
-    else return "Поражение!";
+    else return "❌Поражение!❌";
   }
 
   int _generateOption() {
@@ -73,7 +73,12 @@ class _MyHomePageState extends State<MyHomePage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(_isUserWinner(userChoice, botChoice).toString()),
-          content: Text(_parseChoices(userChoice).toString() + " Х " + _parseChoices(botChoice).toString()),
+          content: Text(
+              _parseChoices(userChoice).toString() + " Х " + _parseChoices(botChoice).toString(),
+            style: const TextStyle(
+              fontSize: 15.0,
+            ),
+          ),
           actions: <Widget>[
             TextButton(
               onPressed: () {
@@ -89,54 +94,59 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              "Камень, ножницы, бумага!!!",
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                OutlinedButton(
-                  onPressed: () {
-                    userChoice = 3;
-                    botChoice = _generateOption();
-                    _isUserWinner(3, botChoice);
-                    _showResultDialog(context);
-                  },
-                  child: Text("🌳Бумага"),
-                ),
-                OutlinedButton(
-                  onPressed: () {
-                    userChoice = 2;
-                    botChoice = _generateOption();
-                    _isUserWinner(3, botChoice);
-                    _showResultDialog(context);
-                  },
-                  child: Text("✂️Ножницы"),
-                ),
-                OutlinedButton(
-                  onPressed: () {
-                    userChoice = 1;
-                    botChoice = _generateOption();
-                    _isUserWinner(3, botChoice);
-                    _showResultDialog(context);
-                  },
-                  child: Text("🗿Камень"),
-                ),
-              ],
-            ),
-
-          ],
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: Text(widget.title),
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              const Text(
+                "Камень, ножницы, бумага!!!",
+                style: TextStyle(
+                  fontSize: 20.0,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  OutlinedButton(
+                    onPressed: () {
+                      userChoice = 3;
+                      botChoice = _generateOption();
+                      _isUserWinner(3, botChoice);
+                      _showResultDialog(context);
+                    },
+                    child: Text("🌳Бумага"),
+                  ),
+                  OutlinedButton(
+                    onPressed: () {
+                      userChoice = 2;
+                      botChoice = _generateOption();
+                      _isUserWinner(3, botChoice);
+                      _showResultDialog(context);
+                    },
+                    child: Text("✂️Ножницы"),
+                  ),
+                  OutlinedButton(
+                    onPressed: () {
+                      userChoice = 1;
+                      botChoice = _generateOption();
+                      _isUserWinner(3, botChoice);
+                      _showResultDialog(context);
+                    },
+                    child: Text("🗿Камень"),
+                  ),
+                ],
+              ),
+      
+            ],
+          ),
+        ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
